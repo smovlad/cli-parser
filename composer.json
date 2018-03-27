@@ -1,0 +1,12 @@
+{
+  "name": "smovlad/netpeak-cli-parser",
+  "description": "Test app for Netpeak",
+  "minimum-stability": "stable",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Vlad Smokov",
+      "email": "smovlad2@gmail.com"
+    }
+  ]
+}
