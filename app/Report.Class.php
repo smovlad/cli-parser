@@ -1,11 +1,15 @@
 <?php
 
+namespace smovlad\netpeak_cli_parser;
+
 /* Класс отчёта */
-class Report {
-    private static $path = RESULTPATH; // Название папки с результатами
+class Report
+{
+    private static $path = RESULT_PATH; // Название папки с результатами
     private $domain; // Домен, по которому нужно вывести отчёт
 
-    public function __construct($url) {
+    public function __construct($url)
+    {
         if($url != ""){
             // Приводим строку в нормальный URL с протоколом
             $domain = $this->normalizeDomain($url);
@@ -38,7 +42,8 @@ class Report {
      * @param $url
      * @return string - отформатированный адрес домена
      */
-    private function normalizeDomain($url){
+    private function normalizeDomain($url)
+    {
         // получаем отформатированный домен
         $urlArray = parse_url($url);
         $domain = $urlArray['host'];
@@ -51,7 +56,8 @@ class Report {
     /**
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->makeReport();
     }
 
@@ -59,7 +65,8 @@ class Report {
      * Создаёт отчёт о данном домене
      * @return string - отчёт
      */
-    public function makeReport(){
+    public function makeReport()
+    {
         $report = '';
 
         // Хэш домена

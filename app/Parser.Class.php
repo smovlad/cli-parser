@@ -1,8 +1,11 @@
 <?php
 
+namespace smovlad\netpeak_cli_parser;
+
 /* Класс парсера */
-class Parser {
-    private static $path = RESULTPATH; // Название папки с результатами
+class Parser extends AbstractParser
+{
+    private static $path = RESULT_PATH; // Название папки с результатами
     private $url; // Адрес страницы, которую нужно спарсить
     private $domain; // Название домена (без протокола)
     private $filename; // Путь к файлу с результатом парсинга
@@ -54,7 +57,8 @@ class Parser {
     /**
      * Начать процедуру парсинга
      */
-    public function startParsing(){
+    public function startParsing()
+    {
         // Приводим строку в нормальный URL с протоколом
         $url = $this->normalizeUrl($this->getUrl());
 
@@ -70,7 +74,8 @@ class Parser {
      * @param $str - строка с адресом
      * @return string - отформатированная строка с адресом
      */
-    private function normalizeUrl($str){
+    private function normalizeUrl($str)
+    {
         // получаем отформатированный URL
         $urlArray = parse_url($str);
         $url = $urlArray['scheme'];
@@ -93,7 +98,8 @@ class Parser {
      * @param $recursive - указывает, выполнять ли рекуурсивный поиск страниц
      * @return string - ссылка на файл с результатом
      */
-    private function parseUrl($url, $recursive=true){
+    private function parseUrl($url, $recursive=true)
+    {
         echo "\nНачинаем парсинг страницы {$url}";
 
         // Получаем содержимое страницы
@@ -121,7 +127,8 @@ class Parser {
      * @param $url - URL страницы
      * @return string - Контент страницы
      */
-    private function getPageContent($url){
+    private function getPageContent($url)
+    {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -132,7 +139,8 @@ class Parser {
      * Создаёт файл с результатом
      * @return resource - файл
      */
-    private function createFile(){
+    private function createFile()
+    {
         // проверяем наличие папки и создаём, если её ещё нет
         $path = self::$path;
         if(!file_exists($path)) mkdir($path, 0755, true);
@@ -155,7 +163,8 @@ class Parser {
      * @param $content - содержимое, которое нужно записать
      * @param $file - файл
      */
-    private function addToFile($content, $file){
+    private function addToFile($content, $file)
+    {
         fwrite($file, $content);
     }
 
@@ -165,7 +174,8 @@ class Parser {
      * @param $content - исходный код
      * @return string - список адресов картинок
      */
-    private function parseImages($content){
+    private function parseImages($content)
+    {
         $result = '';
         $url = $this->getUrl();
         $regex='|<img.*?src="(.*?)"|';
@@ -184,7 +194,8 @@ class Parser {
      * @param $img - относительная или абсолютная ссылка на картинку
      * @return string - абсолютная ссылка на изображение
      */
-    private function getAbsoluteURL($img){
+    private function getAbsoluteURL($img)
+    {
         $url = $this->getUrl();
         $imgArray = parse_url($img);
         if($imgArray['host']==""){
@@ -199,7 +210,8 @@ class Parser {
      * @param $content - исходный код
      * @return mixed
      */
-    private function parseLinks($content){
+    private function parseLinks($content)
+    {
         $regex='|<a.*?href="(.*?)"|';
         preg_match_all($regex,$content,$parts);
         return $parts[1];

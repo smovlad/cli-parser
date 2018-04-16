@@ -1,7 +1,10 @@
 <?php
 
+namespace smovlad\netpeak_cli_parser;
+
 /* Класс приложения */
-class App {
+class App
+{
 
     private $arg; //Массив аргументов
 
@@ -24,7 +27,8 @@ class App {
      * Устанавливает массив аргументов
      * @param $arg - массив аргументов, с которыми запущено CLI-приложение
      */
-    private function setArguments($arg){
+    private function setArguments($arg)
+    {
         $this->arg = $arg;
     }
 
@@ -32,14 +36,16 @@ class App {
      * Получает значение аргумента по порядковому номеру
      * @param $number - номер аргумента
      */
-    private function getArgument($number){
+    private function getArgument($number)
+    {
         return $this->arg[$number];
     }
 
     /**
      * Метод Help выводит список команд с пояснениями
      */
-    public function help() {
+    public function help()
+    {
         echo <<<END
         
 Список доступных команд:
@@ -53,7 +59,8 @@ END;
     /**
      * Метод parse выполняет парсинг по url
      */
-    public function parse(){
+    public function parse()
+    {
         echo "Выполняется парсинг...\n(наберитесь терпения, это занимает некоторое время)";
 
         // Устанавливаем адрес парсинга
@@ -69,7 +76,8 @@ END;
     /**
      * Выводит данные анализа по домену
      */
-    public function report(){
+    public function report()
+    {
         echo "Загрузка...\n";
         $url = $this->getArgument(2);
         $report = new Report($url);
@@ -77,5 +85,4 @@ END;
         if($output == '') echo "По данному домену информации не найдено";
         else echo $output;
     }
-
 }
