@@ -1,5 +1,8 @@
 {
   "name": "smovlad/netpeak-cli-parser",
+  "autoload": {
+    "classmap": ["app"]
+  },
   "description": "Test app for Netpeak",
   "minimum-stability": "stable",
   "license": "GPL-2.0-or-later",
